@@ -12,8 +12,8 @@ public class StringSchema extends BaseSchema<String> {
 
     public StringSchema minLength(int length) {
         minLengthValue = length;
-        Predicate<String> miLength = s -> s.length() >= minLengthValue;
-        super.predicates.add(miLength);
+        Predicate<String> minLength = s -> s.length() >= minLengthValue;
+        super.predicates.add(minLength);
         return this;
     }
 

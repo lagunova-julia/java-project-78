@@ -1,8 +1,7 @@
 package hexlet.code;
 
-public class App {
-    public static void main(String[] args) {
-        System.out.println("Hello");
-
+public class Validator {
+    public StringSchema string() {
+        return new StringSchema();
     }
 }

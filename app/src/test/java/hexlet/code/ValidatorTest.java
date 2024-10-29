@@ -12,15 +12,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class ValidatorTest {
+    private Validator validator;
 
     @BeforeEach
     void setUp() {
+        validator = new Validator();
     }
 
     @Test
     void testStringSchema() {
-        var v = new Validator();
-        var schema = v.string();
+        var schema = validator.string();
 
         assertTrue(schema.isValid(""));
         assertTrue(schema.isValid(null));
@@ -38,17 +39,16 @@ class ValidatorTest {
 
         assertFalse(schema.isValid("what does the fox say"));
 
-        var schema1 = v.string();
+        var schema1 = validator.string();
         assertTrue(schema1.minLength(10).minLength(4).isValid("Hexlet"));
 
-        var schema2 = v.string();
+        var schema2 = validator.string();
         assertTrue(schema2.required().minLength(5).contains("hex").isValid("Hexlet"));
     }
 
     @Test
     void testNumberSchema() {
-        var v = new Validator();
-        var schema = v.number();
+        var schema = validator.number();
 
         assertTrue(schema.isValid(5));
 
@@ -72,8 +72,7 @@ class ValidatorTest {
 
     @Test
     void testMapSchema() {
-        var v = new Validator();
-        var schema = v.map();
+        var schema = validator.map();
 
         assertTrue(schema.isValid(null));
 
@@ -94,13 +93,12 @@ class ValidatorTest {
     }
 
     @Test
-    void testMapSchemaHard() {
-        var v = new Validator();
-        var schema = v.map();
+    void testMapSchemaNested() {
+        var schema = validator.map();
 
         Map<String, BaseSchema<String>> schemas = new HashMap<>();
-        schemas.put("firstName", v.string().required());
-        schemas.put("lastName", v.string().required().minLength(2));
+        schemas.put("firstName", validator.string().required());
+        schemas.put("lastName", validator.string().required().minLength(2));
         schema.shape(schemas);
 
         Map<String, String> human1 = new HashMap<>();

@@ -8,7 +8,7 @@ public class BaseSchema<T> {
     protected List<Predicate<T>> predicates = new ArrayList<>();
 
     public BaseSchema<T> required() {
-        Predicate<T> isNotEmpty = value -> value != null; // Проверка на null
+        Predicate<T> isNotEmpty = value -> value != null;
         predicates.add(isNotEmpty);
         return this;
     }

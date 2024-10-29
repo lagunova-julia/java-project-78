@@ -16,6 +16,8 @@ public class BaseSchema<T> {
     /**
      * Добавляет предикат, проверяющий, что значение не равно null,
      * и возвращает текущий экземпляр схемы.
+     *
+     * @return текущий экземпляр {@link BaseSchema}
      */
     public BaseSchema<T> required() {
         Predicate<T> isNotEmpty = value -> value != null;
@@ -26,6 +28,9 @@ public class BaseSchema<T> {
     /**
      * Проверяет, является ли переданное значение валидным,
      * основываясь на добавленных предикатах.
+     *
+     * @param value значение, которое нужно проверить
+     * @return true, если значение проходит все предикаты, иначе false
      */
     public final boolean isValid(T value) {
         for (Predicate<T> predicate : predicates) {

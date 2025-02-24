@@ -1,7 +1,7 @@
 package hexlet.code.schemas;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.function.Predicate;
 
 /**
@@ -11,7 +11,11 @@ import java.util.function.Predicate;
  * @param <T> Тип значений, которые будут проверяться.
  */
 public class BaseSchema<T> {
-    protected List<Predicate<T>> predicates = new ArrayList<>();
+    protected Map<String, Predicate<T>> predicates = new LinkedHashMap<>();
+
+    public void addCheck(String checkName, Predicate<T> predicate) {
+        predicates.put(checkName, predicate);
+    }
 
     /**
      * Добавляет предикат, проверяющий, что значение не равно null,
@@ -21,7 +25,7 @@ public class BaseSchema<T> {
      */
     public BaseSchema<T> required() {
         Predicate<T> isNotEmpty = value -> value != null;
-        predicates.add(isNotEmpty);
+        addCheck("required", isNotEmpty);
         return this;
     }
 
@@ -33,7 +37,7 @@ public class BaseSchema<T> {
      * @return true, если значение проходит все предикаты, иначе false
      */
     public final boolean isValid(T value) {
-        for (Predicate<T> predicate : predicates) {
+        for (Predicate<T> predicate : predicates.values()) {
             if (!predicate.test(value)) {
                 return false;
             }

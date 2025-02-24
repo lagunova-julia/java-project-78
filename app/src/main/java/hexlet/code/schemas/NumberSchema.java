@@ -5,19 +5,19 @@ import java.util.function.Predicate;
 public final class NumberSchema extends BaseSchema<Integer> {
     public NumberSchema required() {
         Predicate<Integer> isNotEmpty = integer -> integer != null;
-        super.predicates.add(isNotEmpty);
+        addCheck("required", isNotEmpty);
         return this;
     }
 
     public NumberSchema positive() {
         Predicate<Integer> isPositive = integer -> integer == null || integer > 0;
-        super.predicates.add(isPositive);
+        addCheck("positive", isPositive);
         return this;
     }
 
     public NumberSchema range(int start, int end) {
         Predicate<Integer> isInRange = integer -> integer >= start && integer <= end;
-        super.predicates.add(isInRange);
+        addCheck("range", isInRange);
         return this;
     }
 }

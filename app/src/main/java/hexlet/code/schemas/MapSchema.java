@@ -10,7 +10,7 @@ public final class MapSchema extends BaseSchema<Map<String, String>> {
     public MapSchema sizeof(int size) {
         sizeValue = size;
         Predicate<Map<String, String>> mapSize = stringStringMap -> stringStringMap.size() == sizeValue;
-        super.predicates.add(mapSize);
+        addCheck("sizeOf", mapSize);
         return this;
     }
 
@@ -27,7 +27,7 @@ public final class MapSchema extends BaseSchema<Map<String, String>> {
             }
             return true;
         };
-        super.predicates.add(shapedMap);
+        addCheck("shape", shapedMap);
         return this;
     }
 }
